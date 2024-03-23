@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "473724628907",
+    "project_id": "kidspace-d82c5",
+    "storage_bucket": "kidspace-d82c5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:473724628907:android:6db3ed155bfff18144ecee",
+        "android_client_info": {
+          "package_name": "com.example.kidspace"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "473724628907-fqtvltr4941jdc9ffjnttaee3rhr3b0p.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.kidspace",
+            "certificate_hash": "947e36cdf1692349bd02633f6f27abfc1adf0cce"
+          }
+        },
+        {
+          "client_id": "473724628907-vqk3riosp9sgd0umaje3sbgctidn7ff6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCxmilrZrVLaB3eIAIPSyITTob1pq2NRh0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "473724628907-vqk3riosp9sgd0umaje3sbgctidn7ff6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
