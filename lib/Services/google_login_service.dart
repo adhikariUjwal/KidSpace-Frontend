@@ -1,39 +1,35 @@
 import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:kidspace/Services/api.dart';
 import 'package:kidspace/Services/shared_prefs.dart';
 
-
 class AuthController {
-  final url = Api().api;
+  final url = "${Api().api}google/auth";
   Dio dio = Dio();
   var shared = SharedPrefs();
 
   Future loginWithGooogle(token) async {
-    print('The googlefirebase send token $token');
     bool response;
-    try {
-      print('Inside Try');
-      var res = await dio.get('${Api().api}auth/google/callback', data: token);
-      print(res);
-      var data = res.data['status'];
-      print("The response data is${res.data}");
 
-      if (data == 200) {
+    try {
+      var res = await dio.post(url, data: {'access_token': token});
+      var status = res.data['status'];
+
+      if (status == 200) {
         var authData = {
           'user': res.data['user'],
           'token': res.data['token']['token'],
+          'isSubscribe': res.data['isSubscribe'],
           'type': 'google'
         };
+
         var prefs = await shared.getPrefs();
         await prefs.setString('authData', jsonEncode(authData));
         response = true;
-      }
-      else {
+      } else {
         response = false;
       }
-    } on DioException catch (_) {
+    } on DioError catch (_) {
       response = false;
     }
     return response;

@@ -185,7 +185,10 @@ class _RegisterFormState extends State<RegisterForm> {
                   height: 45,
                   width: 150,
                   child: ElevatedButton(
-                    onPressed: submitForm,
+                    onPressed: () {
+                      const CircularProgressIndicator();
+                      submitForm();
+                    },
                     style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(40),
@@ -211,6 +214,7 @@ class _RegisterFormState extends State<RegisterForm> {
               const SizedBox(width: 5),
               GestureDetector(
                 onTap: () {
+                  
                   Navigator.push(
                     context,
                     MaterialPageRoute(

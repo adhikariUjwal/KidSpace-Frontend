@@ -3,6 +3,7 @@ import 'package:kidspace/Screens/MainScreens/audio_screen.dart';
 import 'package:kidspace/Screens/MainScreens/home_screen.dart';
 import 'package:kidspace/Screens/MainScreens/story_screen.dart';
 import 'package:kidspace/Screens/MainScreens/video_screen.dart';
+import 'package:kidspace/Services/audio.dart';
 
 class CustomButtomBar extends StatefulWidget {
   const CustomButtomBar({super.key});
@@ -28,7 +29,7 @@ class _CustomButtomBarState extends State<CustomButtomBar> {
       case 1:
         return const Rhymes();
       case 2:
-        return const AudioPage();
+        return const AudioStory();
       case 3:
         return const StoryPage();
       default:

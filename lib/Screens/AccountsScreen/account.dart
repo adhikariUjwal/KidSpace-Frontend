@@ -8,6 +8,7 @@ import 'package:kidspace/Services/api.dart';
 import 'package:kidspace/Widgets/bottom_bar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:path/path.dart' as path;
 
 class Account extends StatefulWidget {
   const Account({super.key});
@@ -18,7 +19,7 @@ class Account extends StatefulWidget {
 
 class _AccountState extends State<Account> {
   var accounts = [];
-  var fileUrl = Api().fileApi;
+  var fileUrl = "${Api().fileApi}account-image/";
   bool isEditing = false;
   bool showEditButton = false;
   bool dataLoaded = false;
@@ -160,19 +161,42 @@ class _AccountState extends State<Account> {
                                                             height: 150,
                                                             width: 150,
                                                             child:
+                                                                //     CachedNetworkImage(
+                                                                //   imageUrl: fileUrl +
+                                                                //       accounts[
+                                                                //               index]
+                                                                //           ['image'],
+                                                                //   progressIndicatorBuilder:
+                                                                //       (context, url,
+                                                                //               downloadProgress) =>
+                                                                //           Center(
+                                                                //     child: CircularProgressIndicator(
+                                                                //         value: downloadProgress
+                                                                //             .progress),
+                                                                //   ),
+                                                                //   errorWidget: (context,
+                                                                //           url,
+                                                                //           error) =>
+                                                                //       const Icon(Icons
+                                                                //           .error),
+                                                                //   fit: BoxFit.cover,
+                                                                // ),
                                                                 CachedNetworkImage(
-                                                                  imageUrl: "https://source.unsplash.com/random",
-                                                              // imageUrl: fileUrl +
-                                                              //     accounts[
-                                                              //             index]
-                                                              //         ['image'],
+                                                              imageUrl: fileUrl +
+                                                                  path.basename(
+                                                                      accounts[
+                                                                              index]
+                                                                          [
+                                                                          'image']),
                                                               progressIndicatorBuilder:
                                                                   (context, url,
                                                                           downloadProgress) =>
                                                                       Center(
-                                                                child: CircularProgressIndicator(
-                                                                    value: downloadProgress
-                                                                        .progress),
+                                                                child:
+                                                                    CircularProgressIndicator(
+                                                                  value: downloadProgress
+                                                                      .progress,
+                                                                ),
                                                               ),
                                                               errorWidget: (context,
                                                                       url,
@@ -195,8 +219,8 @@ class _AccountState extends State<Account> {
                                                                       context,
                                                                       MaterialPageRoute(
                                                                           builder: (context) => UpdateAccount(
-                                                                            imageUrl: "https://source.unsplash.com/random",
-                                                                                // imageUrl: fileUrl + accounts[index]['image'],
+                                                                                // imageUrl: "https://source.unsplash.com/random",
+                                                                                imageUrl: fileUrl + path.basename(accounts[index]['image']),
                                                                                 accountName: accounts[index]['name'],
                                                                                 id: accounts[index]['id'],
                                                                               )));

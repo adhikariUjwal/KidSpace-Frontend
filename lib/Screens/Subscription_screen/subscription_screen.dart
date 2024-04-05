@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kidspace/Screens/AuthScreens/login_screen.dart';
+import 'package:kidspace/Screens/Subscription_screen/subscription_pay_screen.dart';
 import 'package:kidspace/Services/subscription_service.dart';
 
 class SubscriptionPage extends StatefulWidget {
@@ -11,7 +12,7 @@ class SubscriptionPage extends StatefulWidget {
 
 class _SubscriptionPageState extends State<SubscriptionPage> {
   bool loading = true;
-  List plans = [];
+  List<dynamic> plans = [];
   @override
   initState() {
     super.initState();
@@ -51,22 +52,12 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        const SizedBox(height: 120),
+                        const SizedBox(height: 180),
                         Container(
-                          padding: const EdgeInsets.all(4),
+                          padding: const EdgeInsets.all(30),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Container(
-                                  alignment: Alignment.centerLeft,
-                                  child: const Text(
-                                    'Pricing Plan',
-                                    style: TextStyle(fontSize: 19),
-                                  ),
-                                ),
-                              ),
                               GridView.builder(
                                 shrinkWrap: true,
                                 gridDelegate:
@@ -140,24 +131,24 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                                                       Colors.yellow,
                                                 ),
                                                 onPressed: () {
-                                                  // Navigator.push(
-                                                  //     context,
-                                                  //     MaterialPageRoute(
-                                                  //         builder: (_) =>
-                                                  //             SubcriptionPayTypeScreen(
-                                                  //               payingPrice:
-                                                  //                   plans[index]
-                                                  //                       [
-                                                  //                       'price'],
-                                                  //               planDetails: {
-                                                  //                 "name": plans[
-                                                  //                         index]
-                                                  //                     ['name'],
-                                                  //                 "id": plans[
-                                                  //                         index]
-                                                  //                     ['id']
-                                                  //               },
-                                                  //             )));
+                                                  Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (_) =>
+                                                              SubcriptionPayTypeScreen(
+                                                                payingPrice:
+                                                                    plans[index]
+                                                                        [
+                                                                        'price'],
+                                                                planDetails: {
+                                                                  "name": plans[
+                                                                          index]
+                                                                      ['name'],
+                                                                  "id": plans[
+                                                                          index]
+                                                                      ['id']
+                                                                },
+                                                              )));
                                                 },
                                                 child: const Text(
                                                   "Get Started",

@@ -1,7 +1,11 @@
+import 'dart:convert';
+
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter/material.dart';
 import 'package:kidspace/Screens/AccountsScreen/account.dart';
+import 'package:kidspace/Screens/Subscription_screen/subscription_screen.dart';
 import 'package:kidspace/Services/google_login_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class GoogleAuthButton extends StatefulWidget {
   const GoogleAuthButton({super.key});
@@ -23,12 +27,14 @@ class _GoogleAuthButtonState extends State<GoogleAuthButton> {
 
   _loginToLaravel(token) async {
     var response = await authController.loginWithGooogle(token);
-    print("Login to laravel response is: $response");
     if (response == true) {
-      _navigate();
-      setState(() {
-        isSigning = false;
-      });
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      var authData = jsonDecode(prefs.getString('authData') ?? '{}');
+      if (authData['isSubscribe'] == 'true') {
+        _navigateToAccount();
+      } else {
+        _navigateToSubscriptionScreen();
+      }
     } else {
       _showSnackBar();
       setState(() {
@@ -37,9 +43,14 @@ class _GoogleAuthButtonState extends State<GoogleAuthButton> {
     }
   }
 
-  _navigate() {
+  _navigateToAccount() {
     Navigator.of(context)
         .push(MaterialPageRoute(builder: (context) => const Account()));
+  }
+
+  _navigateToSubscriptionScreen() {
+    Navigator.of(context).push(
+        MaterialPageRoute(builder: (context) => const SubscriptionPage()));
   }
 
   _showSnackBar() {
@@ -50,7 +61,7 @@ class _GoogleAuthButtonState extends State<GoogleAuthButton> {
           color: Colors.amber,
         ),
       ),
-      backgroundColor: Color.fromARGB(255, 74, 64, 255),
+      backgroundColor: Colors.red,
     ));
   }
 
@@ -58,14 +69,12 @@ class _GoogleAuthButtonState extends State<GoogleAuthButton> {
   void initState() {
     super.initState();
     _googleSignIn.onCurrentUserChanged.listen((GoogleSignInAccount? account) {
-      print("The account is:$account");
       if (account != null) {
         setState(() {
           isSigning = true;
         });
-        account.authentication.then((value) => {
-              _loginToLaravel({'access_token': value.accessToken})
-            });
+        account.authentication
+            .then((value) => {_loginToLaravel(value.accessToken)});
       }
     });
     _googleSignIn.signInSilently();
@@ -79,8 +88,7 @@ class _GoogleAuthButtonState extends State<GoogleAuthButton> {
           isSigning = true;
         });
         try {
-          var res = await _googleSignIn.signIn();
-          print("The response after _googleSignIn.signIn is: $res");
+          await _googleSignIn.signIn();
         } catch (_) {
           _showSnackBar();
         }

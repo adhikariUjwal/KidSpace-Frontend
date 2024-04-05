@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:kidspace/Services/api.dart';
 import 'package:kidspace/Services/rhymes.dart';
-import 'package:kidspace/Widgets/RhymeScreen/all_rhymes.dart';
+import 'package:kidspace/Widgets/Rhyme/all_rhymes.dart';
 import 'package:kidspace/Widgets/search_bar.dart';
 
 class Rhymes extends StatefulWidget {
@@ -12,7 +13,7 @@ class Rhymes extends StatefulWidget {
 }
 
 class _RhymesState extends State<Rhymes> with TickerProviderStateMixin {
-  var fileUrl = Api().fileApi;
+  var fileUrl = "${Api().fileApi}videos/";
 
   bool isPlaying = false;
   bool isLoading = true;
@@ -59,9 +60,13 @@ class _RhymesState extends State<Rhymes> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+      statusBarColor: Color.fromARGB(163, 0, 72, 255),
+      systemNavigationBarColor: Color.fromARGB(163, 0, 72, 255),
+    ));
     return SafeArea(
       child: Scaffold(
-          backgroundColor: const Color.fromRGBO(57, 165, 208, 0.647),
+          backgroundColor: const Color.fromARGB(163, 0, 72, 255),
           // appBar: const Appbar(),
           // endDrawer: const CustomDrawer(),
           floatingActionButton: FloatingActionButton.small(
@@ -76,7 +81,7 @@ class _RhymesState extends State<Rhymes> with TickerProviderStateMixin {
             child:
                 //Main Container
                 Padding(
-              padding: const EdgeInsets.only(top: 18.0, left: 10, right: 10),
+              padding: const EdgeInsets.only( left: 10, right: 10),
               child: isLoading
                   ? SizedBox(
                       height: MediaQuery.of(context).size.height * .7,
@@ -116,7 +121,7 @@ class _RhymesState extends State<Rhymes> with TickerProviderStateMixin {
                             //Filtered Rhymes
                             if (isSearching)
                               FilteredRhymes(filteredRhymes: filteredRhymes),
-      
+
                             if (!isSearching)
                               //Recently Played + All Rhymes
                               SizedBox(
@@ -150,7 +155,8 @@ class _RhymesState extends State<Rhymes> with TickerProviderStateMixin {
                                     Container(
                                       alignment: Alignment.topLeft,
                                       child: Padding(
-                                        padding: const EdgeInsets.only(top: 10.0),
+                                        padding:
+                                            const EdgeInsets.only(top: 10.0),
                                         child: Column(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
